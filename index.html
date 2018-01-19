@@ -1,107 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Chat Bot</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="msapplication-tap-highlight" content="no"/>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="dns-prefetch" href="//fonts.gstatic.com/">
-<link rel="dns-prefetch" href="//botwidget.gupshup.io/">
-<link rel="dns-prefetch" href="//csi.gstatic.com/">
-<link rel="dns-prefetch" href="//fonts.googleapis.com/">
-<link rel="dns-prefetch" href="//fonts.gstatic.com/">
-<link rel=subresource href="./templates.html">
+<html><head>
+	<title>UCC Bot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="images/webicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link id="gs-css" type="text/css" rel="stylesheet" href="//www.buildquickbots.com/botwidget/v2/demo/static/css/style.css">
+	<script type="text/javascript" src="scripts/functions.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<!--<script id="gs-sdk" src="//www.buildquickbots.com/botwidget/v2/demo/static/js/sdk.js?v=3" key="18e325b1-52e5-4f95-9fbe-578624085fd3"></script>-->
+	<script id="gs-sdk" src='//www.buildquickbots.com/botwidget/v3/demo/static/js/sdk.js?v=3' key="18e325b1-52e5-4f95-9fbe-578624085fd3" ></script>
+	<script type="text/javascript">
+		if (screen.width <= 699) {
+			document.location = "https://ucc-chatbot.github.io/mobile.html";
+		}
+	</script>
 
-<link rel="shortcut icon" href="../static/img/favicon.png" type="image/x-icon">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-<!--JAVSCRIPT HERE-->
-<!-- <script type="text/javascript" src="../static/third-party/jQuery/jquery-3.0.0/jquery-3.0.0.js"></script>
-<script type="text/javascript" src="../static/third-party/jQuery/jquery-3.0.0/jquery-migrate-3.0.0.js"></script>
-<script type="text/javascript" src="../static/third-party/jQuery/jquery-tmpl/jquery.tmpl.min.js"></script>
-<script type="text/javascript" src="../static/third-party/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="../static/third-party/CryptoJS-v3.1.2/rollups/aes.js"></script>
-<script type="text/javascript" src="../static/third-party/CryptoJS-v3.1.2/rollups/md5.js"></script>
-<script type="text/javascript" src="../static/third-party/CryptoJS-v3.1.2/rollups/pbkdf2.js"></script>
-<script type="text/javascript" src="../static/third-party/autolinker/autolinker.min.js"></script> -->
 
-<link rel="stylesheet" async href="../static/third-party/bootstrap-3.3.7-dist/css/bootstrap.min_3.9.1.css?v=3.9.1" type="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"></head>
+<body background="images/chatbot-page-bg.jpg" style="background-repeat: no-repeat;background-position:center;background-size:cover;height:100%;">
 
-<!-- <link rel="stylesheet" href="../static/css/index.css?v=3.9.1" type="text/css" />
-<link rel="stylesheet" href="../static/css/style.css?v=3.9.1" type="text/css" />
-<link rel="stylesheet" href="../static/css/mobile.css?v=3.9.1" type="text/css" /> -->
 
-<script type="text/javascript" src="../static/js/thirdparty-min_3.9.1.js?v=3.9.1"></script>
-<link rel="stylesheet" href="../static/css/custom.min_3.9.1.css?v=3.9.1" type="text/css" />
-</head>
-<body class="">
-	<div id="loading" class="cover-all-bg"><i class="loading-backdrop"></i></div>
-	<div class="container">
-		<!-- Example row of columns -->
-		<div class="col-md-12 mainer full-height-box">
-			<div>
-				<div class="nav-header-body" style="margin-top:0;">
-					<i class="svg bgsvgdark scroll-to-bottom" id="scrollToBottom" onclick="bw.html.scrollBottom();" style="display: none;"></i>
-					<div class="wrap">
-						<ul class="media-list" id="chat-container">
-						</ul>
-					</div>
-					<form id="post-message-form" class="user__input">
-					<div class="alerts"></div>
-					<span class="final" id="final_span"></span>
-						<div class="interim" id="interim_span" >
-							<span class="interim-text" id="interimText">Listening...</span>
-							<span class="interim-actions">
-								<span class="interim-speaker" onclick="bw.google.startButton();">
-									<img src="../static/img/listening_2.gif"> 
-								</span>
-								<span class="interim-close" onclick="bw.google.startButton();">
-									<div class="sprite sprite-cancel"></div>
-									<!-- <img src="../static/img/cancel.png"> -->
-								</span>
-							</span>
-						</div>
-						<div class="footer create-newmessage" id="footer">
-							<div class="input-group" style="width:100%;">
-								<div class="input-group-addon dropup" id="persistenceMenuId">
-								</div>
-								<input type="text" class="form-control post-message" placeholder="Type your message here" id="post-message" autocomplete="off">
-								<span class="input-group-addon">
-									<span class="ic_attach cursor" id="attach_file" style="display: none;" onclick="$('#image_upload').click();">
-										<i class="svg bgsvgdark" id="attachment"></i>
-									</span>
-									<button type="submit" id="widgetSendButton" class="ic_send">
-										<i id="sendIcon" class="svg bgsvgdark"></i>
-									</button>
-									<button id="speechBtn" class="ic_mic hide" onclick="bw.google.startButton();">
-										<i id="microPhone" class="svg bgsvgdark"></i>
-									</button>
-								</span>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div id="webwiew-iframe"></div>
-	</div><!--/.container-->
-	<input type="file" id="image_upload" name="upload" style="display: none;"/>
-	<!-- Modal start from here -->
-	<div id="allModals"></div>
-	<!-- TEMPLATES START HERE -->
-	<div id="templates"></div>
-	<!-- <script type="text/javascript" src="../constants.js?v=3.9.1"></script>
-	<script type="text/javascript" src="../static/js/svg.js?v=3.9.1"></script>
-	<script type="text/javascript" src="../static/js/initialize.js?v=3.9.1"></script>
-	<script type="text/javascript" src="../static/js/services.js?v=3.9.1"></script>
-	<script type="text/javascript" src="../static/js/events.js?v=3.9.1"></script>
-	<script type="text/javascript" src="../static/js/googlespeech.js?v=3.9.1"></script>
-	<script type="text/javascript" src="../static/js/socket.js?v=3.9.1"></script>
-	<script type="text/javascript" src="../static/js/widget.js?v=3.9.1"></script>
-	<script type="text/javascript" src="../static/js/mobile.js?v=3.9.1"></script> -->
-	<script type="text/javascript" src="../static/js/custom-min_3.9.1.js?v=3.9.1" async="true"></script>
-	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChjOGATnyKHYRvGX81SZ8AqyyJb5F1RJE" async="true" cache="true"></script> -->
-	<!-- <img async src="../static/img/botwidgetImg.png" style="display:none;"/> -->
-</body>
-</html>
+
+<div id="supportchatwidget"><div id="widget-close" class="tc-widget widget-fadeIn" style="background-color: rgb(159, 191, 215); width: 100%; height: 45px; border-color: rgb(123, 171, 199); bottom: 620px; border-radius: 4px 4px 0px 0px; display: block;"><div class="logo-img-icon" style="border-radius: 40px;"><img src="https://www.gupshup.io/images/botwidget/ic_dummy_chat_g.png" width="35" height="35" style="margin: 5px;"></div><span id="max-msg" style="font-size: 16px; color: rgb(255, 254, 254);">UCC Bot</span></span></div><div id="widget-open" class="tc-widget" onclick="tc.funcs.toggleWidget(true)" style="background-color: rgb(159, 191, 215); height: 45px; border-color: rgb(123, 171, 199); width: 100%; border-radius: 4px 4px 0px 0px; display:none;"><div class="logo-img-icon"><img src="https://www.gupshup.io/images/botwidget/ic_dummy_chat_g.png" width="45" height="45"></div><span id="min-msg" style="font-size: 16px; color: rgb(255, 236, 236);">Talk to UCC Bot</span><span class="bedge" style="display: none;">0</span></div><div id="widget" class="tc-widget widget-fadeIn" style="height: 620px; width: 100%; border-color: rgb(123, 171, 199); display: block;"><iframe style="max-width: 1024px" src="//www.buildquickbots.com/botwidget/v3/echat/mobile.html?data=eyJib3RrZXkiOiIxOGUzMjViMS01MmU1LTRmOTUtOWZiZS01Nzg2MjQwODVmZDMiLCJzZW5kZXIiOnsiY2hhbm5lbCI6IndpZGdldCIsInNlbmRlciI6eyJpZCI6ImFub246NTYyM2RlYWYtNzJlOS0wZjI1ZjU5YSIsIm5hbWUiOiJVc2VyIn0sInJlY2lwaWVudCI6eyJpZCI6IjE4ZTMyNWIxLTUyZTUtNGY5NS05ZmJlLTU3ODYyNDA4NWZkMyIsIm5hbWUiOiJCb3QifSwibWVzc2FnZSI6eyJ0ZXh0IjoiaGkiLCJ0eXBlIjoidGV4dCJ9fSwiY29tbW9uIjp7ImltZ0Rpc3BUeXBlIjoiY2lyY3VsYXIiLCJiZ0NvbG9yIjoiI2ZmZjFmMSIsImJnSW1hZ2UiOiJodHRwczovL3dhbGxwYXBlcnN0b2NrLm5ldC93YWxscGFwZXJzL3RodW1iczEvNDM4OTZ3aWRlLmpwZyIsImZvbnRDb2xvciI6IiMwMDAwMDAiLCJpc01vYmlsZSI6ZmFsc2UsInJlZiI6Im51bGwiLCJ3aWR0aCI6MzIwLCJoZWlnaHQiOjM5MH0sImNvbnRlbnQiOnsiYm90IjoiLy93d3cuYnVpbGRxdWlja2JvdHMuY29tL3dpZGdldC9ib3RzL2JhMzU1MjFjZjVmZjdhY2I4M2MyMjc3OTY4M2Q5MzM5LzEwZDNmODdjMjc4OWZlNmM3OGVlMDUzNjRjMDQyMjMzL2JvdC5wbmciLCJib3RCdWJibGVDb2xvciI6IiNmNWY1ZjUiLCJib3RGb250Q29sb3IiOiIjNzk3OTc5IiwidXNlciI6Imh0dHBzOi8vd3d3Lmd1cHNodXAuaW8vaW1hZ2VzL2JvdHdpZGdldC9pY191c2VyLnBuZyIsInVzZXJCdWJibGVDb2xvciI6IiM1YWIwYzYiLCJ1c2VyRm9udENvbG9yIjoiI2ZmZmZmZiIsInBhZ2VUaXRsZSI6IlVDQyBCb3QiLCJmb250U2l6ZSI6MTQsImZvbnRGYW1pbHkiOiJzYW5zLXNlcmlmIiwiYmdJbWFnZSI6Imh0dHBzOi8vd2FsbHBhcGVyc3RvY2submV0L3dhbGxwYXBlcnMvdGh1bWJzMS80Mzg5NndpZGUuanBnIn0sImNvbmZpZyI6eyJwZXJzaXN0ZW5jZU1lbnUiOiJ7XCJkaXNhYmxlaW5wdXRcIiA6IGZhbHNlLFwibWVudVwiOiBbe1widGl0bGVcIjogXCJJbmZvcm1hdGlvbiBHdWlkZVwiLFwidHlwZVwiOiBcInRleHRcIn0gXSB9IiwicGVyTWVudUltZyI6IiIsImF0dGFjaG1lbnQiOiJObyIsIndpZGdldFR5cGUiOiJUZXh0IiwibXNnRW5jIjoiTm8iLCJ3ZWJWaWV3IjoiWWVzIiwiUkRTdGF0dXMiOiJZZXMiLCJpc1Jlc3BvbnNpdmUiOiJZZXMiLCJhbGxvd0h0bWxGcm9tQm90IjoiTm8ifX0=&domain=https://ucc-chatbot.github.io&timestamp=1516326879325" id="iframe_widget"></iframe></div></div></body></html>
