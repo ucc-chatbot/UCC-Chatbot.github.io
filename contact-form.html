@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -26,33 +27,31 @@
 				<img src="images/img-01.png" alt="IMG">
 			</div>
 
-			<form class="contact1-form validate-form">
+			<form class="contact1-form validate-form" action="POST">
 				<span class="contact1-form-title">
 					Get in touch with us:
 				</span>
 
 				<div class="wrap-input1 validate-input" data-validate = "Name is required">
-					<input class="input1" type="text" name="name" placeholder="Name">
+					<input class="input1" type="text" name="contactName" id="contactName" placeholder="Name">
 					<span class="shadow-input1"></span>
 				</div>
 
 				<div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-					<input class="input1" type="text" name="email" placeholder="Email">
+					<input class="input1" type="text" name="contactEmail" id="contactEmail" placeholder="Email">
 					<span class="shadow-input1"></span>
 				</div>
-
+				<div class="wrap-input1 validate-input" data-validate = "Contact Number is required">
+					<input class="input1" type="text" name="contactNumber" id="contactNumber" placeholder="Contact Number">
+					<span class="shadow-input1"></span>
+				</div>
 				<div class="wrap-input1 validate-input" data-validate = "What would you like to talk about?">
-					<input class="input1" type="text" name="subject" placeholder="Subject">
-					<span class="shadow-input1"></span>
-				</div>
-
-				<div class="wrap-input1 validate-input" data-validate = "You're message here and I'll answer as soon as possible">
-					<textarea class="input1" name="message" placeholder="Message"></textarea>
+					<textarea class="input1" name="contactMessage" id="contactMessage" placeholder="Message"></textarea>
 					<span class="shadow-input1"></span>
 				</div>
 
 				<div class="container-contact1-form-btn">
-					<button class="contact1-form-btn">
+					<button class="contact1-form-btn" onclick="submitClick()">
 						<span>
 							Send
 							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -68,15 +67,49 @@
 			scale: 1.1
 		})
 	</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+  	window.dataLayer = window.dataLayer || [];
+  	function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
 
-  gtag('config', 'UA-23581568-13');
-</script>
+  	gtag('config', 'UA-23581568-13');
+	</script>
 	<script src="scripts/main.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+<script>
+	
+	var submitBtn = document.getElementById('submitBtn');
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyB8Rhu38Iau6Auc_cIEj3wL1n3scuoQR2g",
+    authDomain: "web-quickstart-89c9e.firebaseapp.com",
+    databaseURL: "https://web-quickstart-89c9e.firebaseio.com",
+    projectId: "web-quickstart-89c9e",
+    storageBucket: "web-quickstart-89c9e.appspot.com",
+    messagingSenderId: "604559954722"
+  };
+  firebase.initializeApp(config);
+    var database = firebase.database();
+
+	var ref = database.ref('Users');
+  		
+  	var contactName = document.getElementById('contactName');
+	var contactEmail = document.getElementById('contactEmail');
+	var contactNumber = document.getElementById('contactNumber');
+	var contactMessage = document.getElementById('contactMessage');
+	function submitClick(){
+
+		var data = {
+			contactName: contactName.value,
+			contactEmail: contactEmail.value,
+			contactNumber: contactNumber.value,
+			contactMessage: contactMessage.value
+		}
+		ref.push(data);
+
+	}
+</script>
 
 </body>
 </html>
